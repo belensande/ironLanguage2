@@ -1,0 +1,32 @@
+<div class="alert alert-danger" *ngIf="error">
+  {{error}}
+</div>
+<div class="row" *ngIf="currentUser">
+  <div class="col-sm-4">
+    <div class="container-separated-items">
+      <h3>Profile</h3>
+      <a [routerLink]="['/edit']">edit <small class="glyphicon glyphicon-pencil"></small></a>
+    </div>
+    <div class="list-group">
+      <div class="list-group-item">
+        <img [src]="BASE_URL + currentUser.imageUrl" class="little-profile" />
+        <h4>{{currentUser.name}}</h4>
+      </div>
+    </div>
+    <ul class="list-group" *ngIf="currentUser.languagesOffered && currentUser.languagesOffered.length">
+      <li class="list-group-item title">Teach</li>
+      <li *ngFor="let language of currentUser.languagesOffered" class="list-group-item">
+        {{language}}
+      </li>
+    </ul>
+    <ul class="list-group" *ngIf="currentUser.languagesDemanded && currentUser.languagesDemanded.length">
+      <li class="list-group-item title">Learn</li>
+      <li *ngFor="let language of currentUser.languagesDemanded" class="list-group-item">
+        {{language}}
+      </li>
+    </ul>
+  </div>
+  <div class="col-sm-8">
+    <h3>Dashboard</h3>
+  </div>
+</div>
