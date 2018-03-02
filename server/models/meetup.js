@@ -7,20 +7,21 @@ const meetupSchema = new Schema({
 		ref: 'User',
 		required: [true, 'Owner is mandatory.']
 	},
-	descripion: {
+	description: {
 		type: String
 	},
 	date: {
 		type: Date,
 		required: [true, 'Date is mandatory.']
 	},
-	place: {
+	place: String,
+	address: {
 		type: String,
-		required: [true, 'Place is mandatory.']
+		required: [true, 'Adress is mandatory.']
 	},
 	location: {
 		lat: Number,
-		long: Number
+		lng: Number
 	},
 	city: {
 		type: String,

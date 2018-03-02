@@ -12,6 +12,7 @@
   },
   "private": true,
   "dependencies": {
+    "@agm/core": "^1.0.0-beta.2",
     "@angular/animations": "^4.4.4",
     "@angular/common": "^4.4.4",
     "@angular/compiler": "^4.4.4",
@@ -22,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^4.4.4",
     "@angular/platform-server": "^4.4.4",
     "@angular/router": "^4.4.4",
+    "@types/googlemaps": "^3.30.7",
     "@types/underscore": "^1.8.7",
     "core-js": "^2.4.1",
     "flag-icon-css": "^3.0.0",

@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { SessionService } from "./../services/session.service";
 import { MeetupService } from "./../services/meetup.service";
 import { CollectionsService } from "./../services/collections.service";
 import { Router } from '@angular/router';
 import * as _ from 'underscore';
+import { MapsAPILoader } from '@agm/core';
+import { } from '@types/googlemaps'
 
 @Component({
   selector: 'app-meetup',
@@ -11,11 +13,15 @@ import * as _ from 'underscore';
   styleUrls: ['./meetup.component.css']
 })
 export class MeetupComponent implements OnInit {
+
+  @ViewChild('search') public searchElement: ElementRef;
+
+  meetupInfo: any = {};
   error: String;
-  meetupInfo: any = {
-		description: "",
-		place: ""
-  };
+  description: "";
+  place: String = "";
+  address: String;
+  location: any;
   date: Date;
   city: String = "";
   languages: String[] = [];
@@ -24,7 +30,7 @@ export class MeetupComponent implements OnInit {
   cities: String[];
   availableLanguages: String[];
 
-  constructor(private meetupService: MeetupService, private session: SessionService, private collectionsService: CollectionsService, private router: Router) { }
+  constructor(private mapsAPILoader: MapsAPILoader, private meetupService: MeetupService, private session: SessionService, private collectionsService: CollectionsService, private router: Router) { }
 
   ngOnInit() {
     this.session.isLogged()
@@ -45,6 +51,25 @@ export class MeetupComponent implements OnInit {
             (cities) => {
               this.cities = cities;
             });
+
+          this.mapsAPILoader.load().then(
+            () => {
+              let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, { types: ["address"] });
+
+              autocomplete.addListener("place_changed", () => {
+                this.error = "";
+                let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+                if (!place.geometry) {
+                  this.error = "Select from list";
+                  this.location = {};
+                  this.address = "";
+                } else {
+                  this.location = place.geometry.location;
+                  this.address = place.formatted_address;
+                }
+              });
+            });
         }
       });
   }
@@ -54,21 +79,26 @@ export class MeetupComponent implements OnInit {
   }
 
   create() {
-    if (!this.meetupInfo.description || !this.meetupInfo.place || ! this.date) {
-      this.error = "Description, place and date are mandatory";
+    this.error = "";
+    if (!this.description || !this.address || ! this.date) {
+      this.error = "Description, address and date are mandatory";
     } else {
-      delete this.meetupInfo['languages'];
-      delete this.meetupInfo['city'];
-      delete this.meetupInfo['date'];
+      this.meetupInfo = {};
+      this.meetupInfo['description'] = this.description;
+      this.meetupInfo['address'] = this.address;
+      this.meetupInfo['date'] = this.date;
 
+      if (this.location) {
+        this.meetupInfo['location'] = this.location;
+      }
+      if (this.place) {
+        this.meetupInfo['place'] = this.place;
+      }
       if (this.city) {
         this.meetupInfo['city'] = this.city;
       }
       if (this.languages.length) {
         this.meetupInfo['languages'] = JSON.stringify(this.languages);
-      }
-      if (this.date) {
-        this.meetupInfo['date'] = this.date;
       }
 
       this.meetupService.create(this.meetupInfo)

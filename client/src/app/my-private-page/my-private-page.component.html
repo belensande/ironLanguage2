@@ -28,5 +28,31 @@
   </div>
   <div class="col-sm-8">
     <h3>Dashboard</h3>
+    <ul class="list-group">
+      <li class="list-group-item container-separated-items">
+        <span>New messages <small class="label badge-pill">{{newMessages}}</small></span>
+        <a class="link" [routerLink]="['/relations']">view <small class="glyphicon glyphicon-search"></small></a>
+      </li>
+      <li class="list-group-item container-separated-items">
+        <span>petitions waiting <small class="label badge-pill">{{petitions}}</small></span>
+        <a class="link" [routerLink]="['/relations']">view <small class="glyphicon glyphicon-search"></small></a>
+      </li>
+      <li class="list-group-item container-separated-items">
+        <span>Relations <small class="label badge-pill">{{relations}}</small></span>
+        <a class="link" [routerLink]="['/relations']">view <small class="glyphicon glyphicon-search"></small></a>
+      </li>
+      <li class="list-group-item container-separated-items">
+        <span>meetups in your city <small class="label badge-pill">{{meetups}}</small></span>
+        <a class="link" [routerLink]="['/meetup/list']">view <small class="glyphicon glyphicon-search"></small></a>
+      </li>
+      <li class="list-group-item container-separated-items">
+        <span>Meetups you'll assit <small class="label badge-pill">{{assistMeetups}}</small></span>
+        <a class="link" [routerLink]="['/meetup/list']">view <small class="glyphicon glyphicon-search"></small></a>
+      </li>
+      <li class="list-group-item container-separated-items">
+        <span>meetups you own <small class="label badge-pill">{{ownMeetups}}</small></span>
+        <a class="link" [routerLink]="['/meetup/list']">view <small class="glyphicon glyphicon-search"></small></a>
+      </li>
+    </ul>
   </div>
 </div>

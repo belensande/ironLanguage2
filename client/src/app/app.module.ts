@@ -20,6 +20,8 @@ import { RelationsComponent } from './relations/relations.component';
 import { ConversationComponent } from './conversation/conversation.component';
 import { MeetupComponent } from './meetup/meetup.component';
 import { MeetupListComponent } from './meetup-list/meetup-list.component';
+import { AgmCoreModule } from '@agm/core';
+import { MeetupDetailComponent } from './meetup-detail/meetup-detail.component'
 
 @NgModule({
   declarations: [
@@ -33,13 +35,18 @@ import { MeetupListComponent } from './meetup-list/meetup-list.component';
     RelationsComponent,
     ConversationComponent,
     MeetupComponent,
-    MeetupListComponent
+    MeetupListComponent,
+    MeetupDetailComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDlq0n-GhsBi575QJmwr9i8O3kzY0xiyi0',
+      libraries: ['places']
+    })
   ],
   providers: [SessionService, CollectionsService, ProfileService, RelationService, MeetupService],
   bootstrap: [AppComponent]
