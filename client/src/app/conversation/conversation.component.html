@@ -14,24 +14,27 @@
       {{error}}
     </div>
     <div class="row list-group" *ngFor="let msg of messages">
-      <div class="col-xs-3 col-sm-2" [ngClass]="{'right': msg.from._id == currentUser._id}">
-        <div class="list-group-item">
-          <a [routerLink]="['/profile', {id: msg.from._id}]">
-            <img class="little-profile" [src]="BASE_URL + msg.from.imageUrl" />
-          </a>
-          <div>
-            <h4><a [routerLink]="['/profile', {id: msg.from._id}]">{{msg.from.username}}</a></h4>
-            <div class="wrappable">
-              <small class="space-right" *ngFor="let lang of msg.from.languagesOffered">{{lang}}</small>
+      <div class="col-xs-12 flex" [ngClass]="{'right': msg.from._id == currentUser._id, 'text-right': msg.from._id == currentUser._id}">
+        <div class="hidden-xs col-sm-2 flex">
+          <div class="list-group-item">
+            <a [routerLink]="['/profile', {id: msg.from._id}]">
+              <img class="little-profile" [src]="BASE_URL + msg.from.imageUrl" />
+            </a>
+            <div>
+              <h5><a [routerLink]="['/profile', {id: msg.from._id}]">{{msg.from.username}}</a></h5>
+              <div class="wrappable">
+                <small class="space-right" *ngFor="let lang of msg.from.languagesOffered">{{lang}}</small>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-xs-9 col-sm-10" [ngClass]="{'right': msg.from._id == currentUser._id, 'list-group-item-info': msg.from._id != currentUser._id && !msg.checked}">
-          <div class="list-group-item">
+        <div class="col-xs-12 col-sm-10 flex" [ngClass]="{'text-right': msg.from._id == currentUser._id}">
+          <div class="list-group-item" [ngClass]="{'active':  msg.to._id == currentUser._id && !msg.checked}">
+            <h5 class="visible-xs"><a [routerLink]="['/profile', {id: msg.from._id}]">{{msg.from.username}}</a> <small class="space-right" *ngFor="let lang of msg.from.languagesOffered">{{lang}}</small></h5>
             <p>{{msg.text}}</p>
-            <small>{{msg.created | date:'medium'}}</small>
+            <h5><small>{{msg.created | date:'medium'}}</small></h5>
           </div>
+        </div>
       </div>
     </div>
   </div>

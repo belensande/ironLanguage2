@@ -62,7 +62,7 @@
       <div class="list-group-item title">
         Assistants
       </div>
-      <div *ngIf="!meetup.assist || !meetup.assist.length">No confirmed assistants</div>
+      <div *ngIf="!meetup.assist || !meetup.assist.length" class="list-group-item">No confirmed assistants</div>
       <div *ngFor="let assistant of meetup.assist" class="list-group-item wrappable-content">
         <a [routerLink]="['/profile', {id: assistant._id}]">{{assistant.username}}</a>
         <span *ngFor="let lang of assistant.languagesOffered">{{lang}}</span>

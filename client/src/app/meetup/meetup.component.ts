@@ -61,9 +61,7 @@ export class MeetupComponent implements OnInit {
                 let place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
                 if (!place.geometry) {
-                  this.error = "Select from list";
                   this.location = {};
-                  this.address = "";
                 } else {
                   this.location = place.geometry.location;
                   this.address = place.formatted_address;

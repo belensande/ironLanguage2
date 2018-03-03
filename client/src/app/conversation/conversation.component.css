@@ -26,19 +26,24 @@
 }
 
 .right {
-  float: right;
+  flex-direction:row-reverse;
 }
 
 .little-profile {
   object-fit: cover;
   object-position: center;
-  height: 80px;
-  width: 80px;
+  height: 50px;
+  width: 50px;
   border-radius: 3px;
 }
 
-.space-right {
+.space-right:not(:last-child) {
   margin-right: 5px;
+}
+
+.right .space-right {
+  margin-right: 0;
+  margin-left: 5px;
 }
 
 .wrappable {
@@ -46,6 +51,40 @@
   flex-wrap:wrap;
 }
 
+.right .wrappable {
+  justify-content: flex-end;
+}
+
 p {
   white-space: pre-line;
 }
+
+.text-rigth {
+  text-align:right;
+}
+
+.flex {
+  display:flex;
+  align-items:stretch;
+  padding-left:0;
+}
+.flex {
+  display: flex;
+  align-items: stretch;
+}
+
+.flex > div{
+  flex-grow:1;
+  
+}
+
+.flex > div:not(.list-group-item) {
+  padding-right: 0;
+  padding-left: 15px;
+}
+
+.active small {
+  color: white;
+  font-style: italic;
+}
+
